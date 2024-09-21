@@ -4,6 +4,7 @@ public class OopDemo {
 
     public void run(){
         System.out.println("OopDemo");
+        new AutoShop().run();
     }
 }
 /*
