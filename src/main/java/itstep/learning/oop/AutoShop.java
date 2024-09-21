@@ -16,6 +16,12 @@ public class AutoShop {
         vehicles.add( new Truck( "Renault C-Truck", 7.5 ) ) ;
         vehicles.add( new Truck( "DAF XF 106 2018", 3.5 ) ) ;
         vehicles.add( new Truck( "Mercedes Actros L", 15.0 ) ) ;
+        vehicles.add(new Car("Audi RS6", "Sport"));
+        vehicles.add(new Car("Audi RS7", "Sport"));
+        vehicles.add(new Car("Audi A4", "Sport-Sedan"));
+        vehicles.add(new Crossover("Audi Q8", 225));
+        vehicles.add(new Crossover("Toyota RAV4", 160));
+        vehicles.add(new Crossover("Lexus RX350", 200));
     }
 
     public void run() {
