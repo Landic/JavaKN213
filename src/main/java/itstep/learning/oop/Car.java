@@ -1,8 +1,13 @@
 package itstep.learning.oop;
 
+import itstep.learning.oop.annotations.Product;
+import itstep.learning.oop.annotations.Required;
+
 import java.util.Locale;
 
+@Product
 public class Car extends Vehicle {
+    @Required
     private String type;
 
     public Car(String name, String type){

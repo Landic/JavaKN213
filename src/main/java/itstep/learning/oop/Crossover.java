@@ -1,8 +1,13 @@
 package itstep.learning.oop;
 
+import itstep.learning.oop.annotations.Product;
+import itstep.learning.oop.annotations.Required;
+
 import java.util.Locale;
 
+@Product
 public class Crossover extends Vehicle implements OffRoad {
+    @Required
     private int suspensionHeight;
 
     public Crossover(String name, int suspensionHeight){

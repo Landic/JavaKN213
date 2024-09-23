@@ -1,5 +1,12 @@
 package itstep.learning.oop;
 
+import itstep.learning.oop.annotations.Product;
+import itstep.learning.oop.annotations.Required;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +32,142 @@ public class AutoShop {
     }
 
     public void run() {
-        printAll();
-        System.out.println("----------- LARGE SIZED ---------------");
-        printLargeSized();
-        System.out.println("----------- NON - LARGE SIZED ---------------");
-        printNonLargeSized();
-        System.out.println("----------- TRAILER-ABLE ---------------");
-        printTrailers();
+        showAllClasses();
+//        printAll();
+//        System.out.println("----------- LARGE SIZED ---------------");
+//        printLargeSized();
+//        System.out.println("----------- NON - LARGE SIZED ---------------");
+//        printNonLargeSized();
+//        System.out.println("----------- TRAILER-ABLE ---------------");
+//        printTrailers();
+        for (Class<?> cls : getProductClasses("itstep.learning.oop")) {
+            System.out.println("Class: " + cls.getName());
+            printRequired(cls);
+        }
+    }
+
+    /*
+        Вивести всі поля класу Bike, помічені анотацією @Required
+     */
+
+    private void printRequired(Class<?> cls)
+    {
+        for(Field field : cls.getDeclaredFields())
+        {
+            if(field.isAnnotationPresent(Required.class))
+            {
+                String requiredName = field.getAnnotation(Required.class).value();
+                boolean isAlter = field.getAnnotation(Required.class).isAlternative();
+                System.out.println("".equals(requiredName) ? field.getName() : requiredName + " or " + field.getName() + "=" + isAlter);
+            }
+        }
+    }
+
+
+    private List<Class<?>> getProductClasses(String packageName) {
+        URL classLocation = this.getClass().getClassLoader().getResource(".");
+        if (classLocation == null) {
+            throw new RuntimeException("Class not found!");
+        }
+        File classRoot = null;
+        try {
+            classRoot = new File(URLDecoder.decode(classLocation.getPath(), "UTF-8"),
+                    packageName.replace(".", "/"));
+        } catch (Exception ignored) {
+        }
+        if (classRoot == null) {
+            throw new RuntimeException("Error resource traversing");
+        }
+
+        List<String> classNames = new ArrayList<>();
+        findClasses(classRoot, packageName, classNames);
+
+        List<Class<?>> classes = new ArrayList<>();
+        for (String className : classNames) {
+            Class<?> cls;
+            try {
+                cls = Class.forName(className);
+            } catch (Exception ignored) {
+                continue;
+            }
+            if (cls.isAnnotationPresent(Product.class)) {
+                classes.add(cls);
+            }
+        }
+
+        return classes;
+    }
+
+    private void findClasses(File directory, String packageName, List<String> classNames) {
+        if (!directory.exists()) {
+            return;
+        }
+        File[] files = directory.listFiles();
+        if (files == null) {
+            return;
+        }
+
+        for (File file : files) {
+            if (file.isDirectory()) {
+                findClasses(file, packageName + "." + file.getName(), classNames);
+            } else if (file.getName().endsWith(".class") && file.isFile() && file.canRead()) {
+                String className = file.getName().substring(0, file.getName().length() - 6);
+                classNames.add(packageName + "." + className);
+            }
+        }
+    }
+
+    private void showAllClasses() {
+        URL classLocation = this.getClass().getClassLoader().getResource(".");
+        if (classLocation == null) {
+            System.err.println("Class not found!");
+            return;
+        }
+        File classRoot = null;
+        File[] files;
+
+
+        try {
+            classRoot = new File(
+                    URLDecoder.decode(classLocation.getPath(), "UTF-8"),
+                    "itstep/learning/oop/"
+            );
+        }
+        catch (Exception ignored) {}
+
+        if (classRoot == null || (files = classRoot.listFiles()) == null) {
+            System.err.println("Error resource traversing!");
+            return;
+        }
+
+        List<String> classNames = new ArrayList<>();
+        for (File file : files) {
+            String fileName = file.getName();
+            if (fileName.endsWith(".class") && file.isFile() && file.canRead()) {
+                classNames.add(
+                        "itstep.learning.oop." +
+                                fileName.substring(0, fileName.length() - 6)
+                );
+            }
+        }
+
+        List<Class<?>> classes = new ArrayList<>();
+        for (String className : classNames) {
+            Class<?> cls;
+            try {
+                cls = Class.forName(className);
+            }
+            catch (ClassNotFoundException ignored) {continue;}
+
+            if(cls.isAnnotationPresent(Product.class))
+            {
+                classes.add(cls);
+            }
+        }
+        for (Class<?> cls : classes)
+        {
+            System.out.println("Class: " + cls.getName());
+        }
     }
 
     public void printAll() {
