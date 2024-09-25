@@ -1,7 +1,7 @@
 package itstep.learning.oop;
 
 public interface Trailer {
-    String trailerInfo(); // public abstract -- default
+    String trailerInfo();   // public abstract -- default
 }
 /*
 Інтерфейс-контракт - вимагає імплементації дії (методу)

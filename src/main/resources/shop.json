@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Kawasaki Ninja",
+    "type": "Sport"
+  },
+  {
+    "name": "Harley-Davidson Sportster",
+    "type": "Road"
+  },
+  {
+    "name": "Renault Master",
+    "seats": 48
+  },
+  {
+    "name": "Mercedes-Benz Sprinter",
+    "seats": 21
+  },
+  {
+    "name": "Bogdan A092",
+    "seats": 24
+  },
+  {
+    "name": "Volvo 9700",
+    "seats": 54
+  },
+  {
+    "name": "Renault C-Truck",
+    "cargo": 7.5
+  },
+  {
+    "name": "DAF XF 106 2018",
+    "cargo": 3.5
+  },
+  {
+    "name": "Mercedes Actros L",
+    "cargo": 15.0
+  },
+  {
+    "name": "Audi Q8",
+    "clearance": 110
+  },
+  {
+    "name": "BMW X5",
+    "clearance": 120
+  },
+  {
+    "name": "Toyota Camry",
+    "carBody": "Sedan"
+  },
+  {
+    "name": "Nissan GTR R35",
+    "carBody": "Sedan"
+  },
+  {
+    "name": "BMW M5 F90",
+    "carBody": "Sport"
+  },
+  {
+    "name": "Audi RS7 C8",
+    "carBody": "Sedan"
+  },
+  {
+    "name": "Audi RS6",
+    "carBody": "Sport"
+  }
+]

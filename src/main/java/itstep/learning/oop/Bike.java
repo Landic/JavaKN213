@@ -1,17 +1,24 @@
 package itstep.learning.oop;
+
 import itstep.learning.oop.annotations.Product;
 import itstep.learning.oop.annotations.Required;
 
 import java.util.Locale;
 
 @Product
-public class Bike extends Vehicle implements Trailer {
-    @Required
-    private String type;
+public class Bike
+        extends Vehicle
+        implements Trailer {
 
-    public Bike(String name, String type){
-        super(name);
-        this.setType(type);
+    @Required
+    private String type = "";
+
+    public Bike() {
+    }
+
+    public Bike(String name, String type ) {
+        super( name );
+        this.setType( type );
     }
 
     public String getType() {
@@ -22,14 +29,18 @@ public class Bike extends Vehicle implements Trailer {
         this.type = type;
     }
 
-
     @Override
-    public String trailerInfo() {
-        return "Cradle trailer";
+    public String getInfo() {
+        return String.format(
+                Locale.ROOT,
+                "Bike '%s', type: %s",
+                super.getName(),
+                this.getType()
+        );
     }
 
     @Override
-    public String getInfo() {
-        return String.format(Locale.ROOT, "Bike '%s', type: %s", super.getName(), this.getType());
+    public String trailerInfo() {
+        return "Сradle trailer";
     }
 }
